@@ -1,0 +1,329 @@
+classDiagram
+    class Conexion {
+        -host: string
+        -user: string
+        -password: string
+        -db: string
+        -con: mysqli
+        +__construct()
+        +close()
+    }
+
+    class Auth {
+        -con: mysqli
+        +__construct(dbConnection: mysqli)
+        +login(username: string, password: string): json
+    }
+
+    class UserCreator {
+        -conn: mysqli
+        -userData: json
+        +__construct(connection: mysqli, data: json)
+        +create(): json
+        -usernameExists(): bool
+        -insertUserData(): int
+        -processVendor(userId: int)
+    }
+
+    class UserManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllUsers(): json
+    }
+
+    class VendorManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getVendorInfo(userId: int): json
+    }
+
+    class UserStatusManager {
+        -conn: mysqli
+        -data: json
+        +__construct(connection: mysqli, requestData: json)
+        +toggleStatus(): json
+        -updateUserStatus(newStatus: string)
+        -releaseVendorLocation()
+        -getVendorLocationId(): int
+        -setLocationAvailable(locationId: int)
+        -removeVendorLocation()
+    }
+
+    class LocationCreator {
+        -conn: mysqli
+        -locationData: json
+        +__construct(connection: mysqli, data: json)
+        +create(): json
+        -validateRequiredData(): bool
+        -checkNameExists(): bool
+        -insertLocation(): int
+    }
+
+    class LocationManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllLocations(): json
+    }
+
+    class LocationStatusManager {
+        -conn: mysqli
+        -data: json
+        -vendorsAffected: int
+        +__construct(connection: mysqli, requestData: json)
+        +toggleStatus(): json
+        -determineNewStatus(): string
+        -releaseVendors()
+        -updateLocationStatus(newStatus: string): bool
+        -generateSuccessMessage(newStatus: string): string
+    }
+
+    class LocationUpdater {
+        -conn: mysqli
+        -locationData: json
+        +__construct(connection: mysqli, data: json)
+        +update(): json
+        -validateRequiredData(): bool
+        -updateLocationData(): bool
+    }
+
+    class RouteCreator {
+        -conn: mysqli
+        -data: json
+        +__construct(connection: mysqli, routeData: json)
+        +createRoute(): json
+        -validateData(): bool
+        -driverHasRouteForDate(): bool
+        -insertRouteAndVendors(): int
+        -assignVendorsToRoute(routeId: int)
+    }
+
+    class RouteUpdater {
+        -conn: mysqli
+        -data: json
+        -routeData: json
+        +__construct(connection: mysqli, routeData: json)
+        +updateRoute(): json
+        -validateData(): bool
+        -checkRouteExists(): bool
+        -driverChanged(): bool
+        -driverHasAnotherRouteForDate(): bool
+        -updateRouteInfo()
+        -updateRouteDriver()
+        -updateRouteVendors()
+        -removeCurrentVendors()
+        -assignNewVendors()
+    }
+
+    class VendorRouteManager {
+        -conn: mysqli
+        -data: json
+        +__construct(connection: mysqli, requestData: json)
+        +removeVendorFromRoute(): json
+        -validateData(): bool
+        -removeVendor(): bool
+    }
+
+    class DriverRouteManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllRoutes(): json
+        -fetchAllRoutes(): array
+        -getVendorsForRoute(routeId: int): array
+    }
+
+    class DriverManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllActiveDrivers(): json
+    }
+
+    class RolesAndLocationsManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getData(): json
+        -getRoles(): array
+        -getAvailableLocations(): array
+    }
+
+    Conexion --> Auth
+    Conexion --> UserCreator
+    Conexion --> UserManager
+    Conexion --> VendorManager
+    Conexion --> UserStatusManager
+    Conexion --> LocationCreator
+    Conexion --> LocationManager
+    Conexion --> LocationStatusManager
+    Conexion --> LocationUpdater
+    Conexion --> RouteCreator
+    Conexion --> RouteUpdater
+    Conexion --> VendorRouteManager
+    Conexion --> DriverRouteManager
+    Conexion --> DriverManager
+    Conexion --> RolesAndLocationsManager
+
+
+
+    ----------------------------------------cardinal
+    classDiagram
+    class Conexion {
+        -host: string
+        -user: string
+        -password: string
+        -db: string
+        -con: mysqli
+        +__construct()
+        +close()
+    }
+
+    class Auth {
+        -con: mysqli
+        +__construct(dbConnection: mysqli)
+        +login(username: string, password: string): json
+    }
+
+    class UserCreator {
+        -conn: mysqli
+        -userData: json
+        +__construct(connection: mysqli, data: json)
+        +create(): json
+        -usernameExists(): bool
+        -insertUserData(): int
+        -processVendor(userId: int)
+    }
+
+    class UserManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllUsers(): json
+    }
+
+    class VendorManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getVendorInfo(userId: int): json
+    }
+
+    class UserStatusManager {
+        -conn: mysqli
+        -data: json
+        +__construct(connection: mysqli, requestData: json)
+        +toggleStatus(): json
+        -updateUserStatus(newStatus: string)
+        -releaseVendorLocation()
+        -getVendorLocationId(): int
+        -setLocationAvailable(locationId: int)
+        -removeVendorLocation()
+    }
+
+    class LocationCreator {
+        -conn: mysqli
+        -locationData: json
+        +__construct(connection: mysqli, data: json)
+        +create(): json
+        -validateRequiredData(): bool
+        -checkNameExists(): bool
+        -insertLocation(): int
+    }
+
+    class LocationManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllLocations(): json
+    }
+
+    class LocationStatusManager {
+        -conn: mysqli
+        -data: json
+        -vendorsAffected: int
+        +__construct(connection: mysqli, requestData: json)
+        +toggleStatus(): json
+        -determineNewStatus(): string
+        -releaseVendors()
+        -updateLocationStatus(newStatus: string): bool
+        -generateSuccessMessage(newStatus: string): string
+    }
+
+    class LocationUpdater {
+        -conn: mysqli
+        -locationData: json
+        +__construct(connection: mysqli, data: json)
+        +update(): json
+        -validateRequiredData(): bool
+        -updateLocationData(): bool
+    }
+
+    class RouteCreator {
+        -conn: mysqli
+        -data: json
+        +__construct(connection: mysqli, routeData: json)
+        +createRoute(): json
+        -validateData(): bool
+        -driverHasRouteForDate(): bool
+        -insertRouteAndVendors(): int
+        -assignVendorsToRoute(routeId: int)
+    }
+
+    class RouteUpdater {
+        -conn: mysqli
+        -data: json
+        -routeData: json
+        +__construct(connection: mysqli, routeData: json)
+        +updateRoute(): json
+        -validateData(): bool
+        -checkRouteExists(): bool
+        -driverChanged(): bool
+        -driverHasAnotherRouteForDate(): bool
+        -updateRouteInfo()
+        -updateRouteDriver()
+        -updateRouteVendors()
+        -removeCurrentVendors()
+        -assignNewVendors()
+    }
+
+    class VendorRouteManager {
+        -conn: mysqli
+        -data: json
+        +__construct(connection: mysqli, requestData: json)
+        +removeVendorFromRoute(): json
+        -validateData(): bool
+        -removeVendor(): bool
+    }
+
+    class DriverRouteManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllRoutes(): json
+        -fetchAllRoutes(): array
+        -getVendorsForRoute(routeId: int): array
+    }
+
+    class DriverManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getAllActiveDrivers(): json
+    }
+
+    class RolesAndLocationsManager {
+        -conn: mysqli
+        +__construct(connection: mysqli)
+        +getData(): json
+        -getRoles(): array
+        -getAvailableLocations(): array
+    }
+
+    Conexion --> Auth : 1..1
+    Conexion --> UserCreator : 1..1
+    Conexion --> UserManager : 1..1
+    Conexion --> VendorManager : 1..1
+    Conexion --> UserStatusManager : 1..1
+    Conexion --> LocationCreator : 1..1
+    Conexion --> LocationManager : 1..1
+    Conexion --> LocationStatusManager : 1..1
+    Conexion --> LocationUpdater : 1..1
+    Conexion --> RouteCreator : 1..1
+    Conexion --> RouteUpdater : 1..1
+    Conexion --> VendorRouteManager : 1..1
+    Conexion --> DriverRouteManager : 1..1
+    Conexion --> DriverManager : 1..1
+    Conexion --> RolesAndLocationsManager : 1..1
+

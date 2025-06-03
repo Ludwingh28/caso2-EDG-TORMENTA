@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1782" dy="787" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="2" value="Database" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="20" y="20" width="180" height="180" as="geometry" />
+    </mxCell>
+    <mxCell id="3" value="-instance: Database&#10;-connection: mysqli&#10;-host: string&#10;-user: string&#10;-password: string&#10;-db: string&#10;+__construct()&#10;+getInstance(): Database&#10;+getConnection(): mysqli&#10;+closeConnection()" style="text" vertex="1" parent="2">
+      <mxGeometry width="180" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="4" value="Auth" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="250" y="20" width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="5" value="-con: mysqli&#10;+__construct(dbConnection: mysqli)&#10;+login(username: string, password: string): json" style="text" vertex="1" parent="4">
+      <mxGeometry width="180" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="6" value="" edge="1" parent="1" source="2" target="4">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="7" value="UserCreator" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="480" y="20" width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="8" value="-conn: mysqli&#10;-userData: json&#10;+__construct(connection: mysqli, data: json)&#10;+create(): json&#10;-usernameExists(): bool&#10;-insertUserData(): int&#10;-processVendor(userId: int)" style="text" vertex="1" parent="7">
+      <mxGeometry width="200" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="9" value="" edge="1" parent="1" source="2" target="7">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="10" value="UserManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="720" y="20" width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="11" value="-conn: mysqli&#10;+__construct(connection: mysqli)&#10;+getAllUsers(): json" style="text" vertex="1" parent="10">
+      <mxGeometry width="180" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="12" value="" edge="1" parent="1" source="2" target="10">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="13" value="VendorManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="950" y="20" width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="14" value="-conn: mysqli&#10;+__construct(connection: mysqli)&#10;+getVendorInfo(userId: int): json" style="text" vertex="1" parent="13">
+      <mxGeometry width="180" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="15" value="" edge="1" parent="1" source="2" target="13">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="16" value="UserStatusManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="1180" y="20" width="200" height="160" as="geometry" />
+    </mxCell>
+    <mxCell id="17" value="-conn: mysqli&#10;-data: json&#10;+__construct(connection: mysqli, requestData: json)&#10;+toggleStatus(): json&#10;-updateUserStatus(newStatus: string)&#10;-releaseVendorLocation()&#10;-getVendorLocationId(): int&#10;-setLocationAvailable(locationId: int)&#10;-removeVendorLocation()" style="text" vertex="1" parent="16">
+      <mxGeometry width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="18" value="" edge="1" parent="1" source="2" target="16">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="19" value="LocationCreator" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="20" y="220" width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="20" value="-conn: mysqli&#10;-locationData: json&#10;+__construct(connection: mysqli, data: json)&#10;+create(): json&#10;-validateRequiredData(): bool&#10;-checkNameExists(): bool&#10;-insertLocation(): int" style="text" vertex="1" parent="19">
+      <mxGeometry width="200" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="21" value="" edge="1" parent="1" source="2" target="19">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="22" value="LocationManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="250" y="220" width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="23" value="-conn: mysqli&#10;+__construct(connection: mysqli)&#10;+getAllLocations(): json" style="text" vertex="1" parent="22">
+      <mxGeometry width="180" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="24" value="" edge="1" parent="1" source="2" target="22">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="25" value="LocationStatusManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="480" y="220" width="200" height="160" as="geometry" />
+    </mxCell>
+    <mxCell id="26" value="-conn: mysqli&#10;-data: json&#10;-vendorsAffected: int&#10;+__construct(connection: mysqli, requestData: json)&#10;+toggleStatus(): json&#10;-determineNewStatus(): string&#10;-releaseVendors()&#10;-updateLocationStatus(newStatus: string): bool&#10;-generateSuccessMessage(newStatus: string): string" style="text" vertex="1" parent="25">
+      <mxGeometry width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="27" value="" edge="1" parent="1" source="2" target="25">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="28" value="LocationUpdater" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="720" y="220" width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="29" value="-conn: mysqli&#10;-locationData: json&#10;+__construct(connection: mysqli, data: json)&#10;+update(): json&#10;-validateRequiredData(): bool&#10;-updateLocationData(): bool" style="text" vertex="1" parent="28">
+      <mxGeometry width="200" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="30" value="" edge="1" parent="1" source="2" target="28">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="31" value="RouteCreator" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="950" y="220" width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="32" value="-conn: mysqli&#10;-data: json&#10;+__construct(connection: mysqli, routeData: json)&#10;+createRoute(): json&#10;-validateData(): bool&#10;-driverHasRouteForDate(): bool&#10;-insertRouteAndVendors(): int&#10;-assignVendorsToRoute(routeId: int)" style="text" vertex="1" parent="31">
+      <mxGeometry width="200" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="33" value="" edge="1" parent="1" source="2" target="31">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="34" value="RouteUpdater" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="1180" y="220" width="200" height="160" as="geometry" />
+    </mxCell>
+    <mxCell id="35" value="-conn: mysqli&#10;-data: json&#10;-routeData: json&#10;+__construct(connection: mysqli, routeData: json)&#10;+updateRoute(): json&#10;-validateData(): bool&#10;-checkRouteExists(): bool&#10;-driverChanged(): bool&#10;-driverHasAnotherRouteForDate(): bool&#10;-updateRouteInfo()&#10;-updateRouteDriver()&#10;-updateRouteVendors()&#10;-removeCurrentVendors()&#10;-assignNewVendors()" style="text" vertex="1" parent="34">
+      <mxGeometry width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="36" value="" edge="1" parent="1" source="2" target="34">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="37" value="VendorRouteManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="20" y="420" width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="38" value="-conn: mysqli&#10;-data: json&#10;+__construct(connection: mysqli, requestData: json)&#10;+removeVendorFromRoute(): json&#10;-validateData(): bool&#10;-removeVendor(): bool" style="text" vertex="1" parent="37">
+      <mxGeometry width="200" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="39" value="" edge="1" parent="1" source="2" target="37">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="40" value="DriverRouteManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="250" y="420" width="180" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="41" value="-conn: mysqli&#10;+__construct(connection: mysqli)&#10;+getAllRoutes(): json&#10;-fetchAllRoutes(): array&#10;-getVendorsForRoute(routeId: int): array" style="text" vertex="1" parent="40">
+      <mxGeometry width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="42" value="" edge="1" parent="1" source="2" target="40">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="43" value="DriverManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="480" y="420" width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="44" value="-conn: mysqli&#10;+__construct(connection: mysqli)&#10;+getAllActiveDrivers(): json" style="text" vertex="1" parent="43">
+      <mxGeometry width="180" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="45" value="" edge="1" parent="1" source="2" target="43">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="46" value="RolesAndLocationsManager" style="swimlane" vertex="1" parent="1">
+      <mxGeometry x="720" y="420" width="200" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="47" value="-conn: mysqli&#10;+__construct(connection: mysqli)&#10;+getData(): json&#10;-getRoles(): array&#10;-getAvailableLocations(): array" style="text" vertex="1" parent="46">
+      <mxGeometry width="200" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="48" value="" edge="1" parent="1" source="2" target="46">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
